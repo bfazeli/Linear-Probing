@@ -15,7 +15,8 @@ HashTable::HashTable()
 	numOfElements = 0;
 
 	table = new int[capacity];
-	fill_n(table, capacity, -1);	// Fills the array with -1's
+	for (int i = 0; i < capacity; ++i)
+		table[i] = -1;		// Fills the array with -1's
 }
 
 HashTable::HashTable(int capacity)
@@ -24,7 +25,8 @@ HashTable::HashTable(int capacity)
 	numOfElements = 0;
 
 	table = new int[capacity];
-	fill_n(table, capacity, -1);
+	for (int i = 0; i < capacity; ++i)
+		table[i] = -1;		// Fills the array with -1's
 }
 
 HashTable::HashTable(const HashTable & otherHashTable)
@@ -33,7 +35,7 @@ HashTable::HashTable(const HashTable & otherHashTable)
 	numOfElements = otherHashTable.numOfElements;
 	table = new int[capacity];
 
-	for (int i = 0; i < numOfElements; ++i)
+	for (int i = 0; i < capacity; ++i)
 	{
 		table[i] = otherHashTable.table[i];
 	}
@@ -50,7 +52,9 @@ void HashTable::insert(int key)
 	{
 		if (table[hash] != -1)
 		{
-			while (++hash != -1);
+			do {
+				hash = (hash != capacity - 1) ? ++hash : 0;
+			} while (table[hash] != -1);
 			table[hash] = key;
 		}
 		else
@@ -64,25 +68,24 @@ void HashTable::insert(int key)
 bool HashTable::search(int key) const
 {
 	int hash = hashValue(key);
+	bool value = false;
 	if (table[hash] == key)
 	{
-		return true;
+		value = true;
 	}
 	else if (table[hash] != key)
 	{
 		int originalHash = hash;
-		while (++hash)
+		while (originalHash-1 != hash)
 		{
-			if (hash >= capacity) hash = 0;
-			else if (table[hash] == key) return true;
-			else if (table[hash] == -1 || originalHash - 1 == hash) return false;
+			if (hash == capacity) hash = 0;
+			else if (table[hash] == key) value = true;
+			else if (table[hash] == -1 || originalHash - 1 == hash) value = false;
 		}
-		return true;
 	}
-	else
-	{
-		return false;
-	}
+	
+	return value;
+	
 }
 
 int HashTable::getCapacity() const
