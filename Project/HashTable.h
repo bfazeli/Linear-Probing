@@ -71,7 +71,7 @@ public:
 
 		Parameter: a key to insert into the hash table
 	*/
-	void insert(int key) const;
+	void insert(int key);
 
 	/*
 		Function search
