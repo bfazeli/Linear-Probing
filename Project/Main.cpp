@@ -4,7 +4,7 @@
 	CS A200
 	March 2, 2017
 
-	Lab 1
+	Lab 5
 */
 
 #include "HashTable.h"
