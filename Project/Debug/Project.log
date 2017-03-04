@@ -1,7 +1,3 @@
-﻿  Main.cpp
-  HashTable.cpp
-  Generating Code...
-HashTable.obj : error LNK2019: unresolved external symbol "private: int __thiscall HashTable::hashValue(int)const " (?hashValue@HashTable@@ABEHH@Z) referenced in function "public: void __thiscall HashTable::insert(int)const " (?insert@HashTable@@QBEXH@Z)
-Main.obj : error LNK2019: unresolved external symbol "public: class HashTable & __thiscall HashTable::operator=(class HashTable const &)" (??4HashTable@@QAEAAV0@ABV0@@Z) referenced in function _main
-Main.obj : error LNK2019: unresolved external symbol "public: __thiscall HashTable::~HashTable(void)" (??1HashTable@@QAE@XZ) referenced in function _main
-\\Mac\Home\Desktop\Coding\OCC\DataStructures\Labs\lab_05_linear_probing\Debug\Project.exe : fatal error LNK1120: 3 unresolved externals
+﻿  HashTable.cpp
+  Project.vcxproj -> \\Mac\Home\Desktop\Linear-Probing\Debug\Project.exe
+  Project.vcxproj -> \\Mac\Home\Desktop\Linear-Probing\Debug\Project.pdb (Partial PDB)

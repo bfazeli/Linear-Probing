@@ -4,7 +4,18 @@ ostream & operator<<(ostream & out, const HashTable & hashTable)
 {
 	// TODO: insert return statement here
 	for (int i = 0; i < hashTable.capacity; i++)
-		out << "Index " << i << " " << (hashTable.table[i] != -1) ? hashTable.table[i] : 'E';
+	{
+		out << "Index " << i << ": ";
+		if (hashTable.table[i] != -1)
+		{
+			out << hashTable.table[i];
+		}
+		else
+		{
+			out << "E";
+		}
+		cout << "\n";
+	}
 
 	return out;
 }
@@ -68,7 +79,7 @@ void HashTable::insert(int key)
 bool HashTable::search(int key) const
 {
 	int hash = hashValue(key);
-	bool value = false;
+	bool value = false, loop = true;
 	if (table[hash] == key)
 	{
 		value = true;
@@ -76,11 +87,16 @@ bool HashTable::search(int key) const
 	else if (table[hash] != key)
 	{
 		int originalHash = hash;
-		while (originalHash-1 != hash)
+		while (originalHash - 1 != hash && loop)
 		{
-			if (hash == capacity) hash = 0;
-			else if (table[hash] == key) value = true;
-			else if (table[hash] == -1 || originalHash - 1 == hash) value = false;
+			if (table[hash] == key)
+			{
+				value = true;
+				loop = false;
+			}
+			else if (table[hash] == -1) value = false;
+
+			hash = (hash != capacity) ? hash + 1 : 0;
 		}
 	}
 	
