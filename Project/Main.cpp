@@ -1,6 +1,11 @@
 /*
-	(name header)
- */
+	Fazeli, Bijan
+
+	CS A200
+	March 2, 2017
+
+	Lab 1
+*/
 
 #include "HashTable.h"
 
