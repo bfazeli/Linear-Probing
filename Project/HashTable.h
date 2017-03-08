@@ -87,6 +87,8 @@ public:
 	*/
 	bool search(int key) const;
 
+	void remove(int key);
+
 	/*
 		Function getCapacity
 		The function returns the capacity of the table.

@@ -70,7 +70,7 @@ void HashTable::insert(int key)
 	}
 	else
 	{
-		while (table[hash] != -1)
+		while (table[hash] != -1 || table[hash] != -2)
 		{
 			hash = (hash == (capacity - 1)) ? 0 : hash + 1;
 		}
@@ -90,19 +90,30 @@ bool HashTable::search(int key) const
 	}
 	else
 	{
-		for (int counter = 0; counter < capacity && table[hash] != key; ++counter)
+		for (int counter = 0;
+			(counter < capacity) && (table[hash] != key) && (table[hash] != -1);
+			++counter)
 		{
 			hash = (hash == (capacity - 1) ? 0 : hash + 1);
 		}
 
-		if (table[hash] == key)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return table[hash] == key;
+	}
+}
+
+void HashTable::remove(int key)
+{
+	int hash = hashValue(key);
+	if (search(key))
+	{
+		while (table[hash] != key) 
+			++hash;
+		table[hash] = -2;
+		--numOfElements;
+	}
+	else
+	{
+		cerr << "Could not delete the element, element is not in the table.";
 	}
 }
 
