@@ -66,21 +66,16 @@ void HashTable::insert(int key)
 	int hash = hashValue(key);
 	if (numOfElements == capacity)
 	{
-		cout << "Table is full. Cannot insert.";
+		cerr << "Table is already full!!!";
 	}
 	else
 	{
-		if (table[hash] != -1)
+		while (table[hash] != -1)
 		{
-			do {
-				hash = (hash != capacity - 1) ? ++hash : 0;
-			} while (table[hash] != -1);
-			table[hash] = key;
+			hash = (hash == (capacity - 1)) ? 0 : hash + 1;
 		}
-		else
-		{
-			table[hash] = key;
-		}
+
+		table[hash] = key;
 		++numOfElements;
 	}
 }
@@ -88,29 +83,27 @@ void HashTable::insert(int key)
 bool HashTable::search(int key) const
 {
 	int hash = hashValue(key);
-	bool value = false, loop = true;
+
 	if (table[hash] == key)
 	{
-		value = true;
+		return true;
 	}
-	else if (table[hash] != key)
+	else
 	{
-		int originalHash = hash;
-		while (originalHash - 1 != hash && loop)
+		for (int counter = 0; counter < capacity && table[hash] != key; ++counter)
 		{
-			if (table[hash] == key)
-			{
-				value = true;
-				loop = false;
-			}
-			else if (table[hash] == -1) value = false;
+			hash = (hash == (capacity - 1) ? 0 : hash + 1);
+		}
 
-			hash = (hash != capacity) ? hash + 1 : 0;
+		if (table[hash] == key)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
-	
-	return value;
-	
 }
 
 int HashTable::getCapacity() const
