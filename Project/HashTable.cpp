@@ -29,6 +29,27 @@ ostream & operator<<(ostream & out, const HashTable & hashTable)
 	return out;
 }
 
+int nextPrime(const HashTable & hashTable)
+{
+	int number = hashTable.capacity;
+	while (!isPrime(++number));
+
+	return number;
+}
+
+bool isPrime(int number)
+{
+	for (int i = 2, check = (int)sqrt((double)(number)); i <= check && !isPrime; ++i)
+	{
+		if (number % i == 0)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
 HashTable::HashTable()
 {
 	capacity = CAPACITY;
@@ -84,7 +105,8 @@ bool HashTable::search(int key) const
 {
 	int hash = hashValue(key);
 
-	if (table[hash] == key)
+	if (numOfElements == 0) return false;
+	else if (table[hash] == key)
 	{
 		return true;
 	}
@@ -115,6 +137,17 @@ void HashTable::remove(int key)
 	{
 		cerr << "Could not delete the element, element is not in the table.";
 	}
+}
+
+void HashTable::rehash()
+{
+	if (numOfElements > capacity/2)
+	{
+
+	}
+	int* newTable = 
+	
+
 }
 
 int HashTable::getCapacity() const

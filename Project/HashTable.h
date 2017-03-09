@@ -2,7 +2,7 @@
 #define HASHTABLE_H
 
 #include <iostream>
-#include <algorithm>
+#include <math.h>
 using namespace std;
 
 const int CAPACITY = 11;
@@ -24,6 +24,13 @@ class HashTable
 					of the HashTable class
 	*/
 	friend ostream& operator<<(ostream& out, const HashTable& hashTable);
+
+	/*
+		This is a friend function that returns the next prime number of the capacity
+	*/
+	friend int nextPrime(const HashTable& hashTable);
+
+	friend bool isPrime(int number);
 
 public:
 
@@ -87,7 +94,18 @@ public:
 	*/
 	bool search(int key) const;
 
+	/*
+		Function remove
+		Function will remove an element in the Hash table if it is found,
+			else it will output an error messsage.
+	*/
 	void remove(int key);
+
+	/*
+		Function rehash
+		Function will rehash the table 
+	*/
+	void rehash();
 
 	/*
 		Function getCapacity
