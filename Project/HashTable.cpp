@@ -21,7 +21,7 @@ ostream & operator<<(ostream & out, const HashTable & hashTable)
 		}
 		else
 		{
-			out << "E";
+			hashTable.table[i] == -2 ? cout << "D" : cout << "E";
 		}
 		cout << "\n";
 	}
@@ -32,14 +32,18 @@ ostream & operator<<(ostream & out, const HashTable & hashTable)
 int nextPrime(const HashTable & hashTable)
 {
 	int number = hashTable.capacity;
-	while (!isPrime(++number));
-
+	
+	do
+	{
+		++number;
+	} while (!isPrime(number));
+		
 	return number;
 }
 
 bool isPrime(int number)
 {
-	for (int i = 2, check = (int)sqrt((double)(number)); i <= check && !isPrime; ++i)
+	for (int i = 2, check = (int)sqrt((double)(number)); i <= check; ++i)
 	{
 		if (number % i == 0)
 		{
@@ -141,13 +145,19 @@ void HashTable::remove(int key)
 
 void HashTable::rehash()
 {
-	if (numOfElements > capacity/2)
+	if (numOfElements != 0)
 	{
+		int ogCapacity = capacity;
+		capacity = nextPrime(ogCapacity);
+		int* newTable = new int[capacity];
 
+		for (int i = 0; i < ogCapacity; i++)
+			if (table[i] != -1 && table[i] != -2)
+				newTable[hashValue(table[i])];
+
+		delete[] table;
+		table = newTable;
 	}
-	int* newTable = 
-	
-
 }
 
 int HashTable::getCapacity() const
